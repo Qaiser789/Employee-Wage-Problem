@@ -8,26 +8,43 @@ public class EmployeeWage {
 
         Random random = new Random();
 
-        int attendance = random.nextInt(3);
-
         int wagePerHour = 20;
         int fullDayHour = 8;
         int partTimeHour = 4; // Assuming part-time hours as 4
+        int workingDaysPerMonth = 20;
 
-        int dailyWage = 0;
+        int monthlyWage = 0;
 
-        if (attendance == 1) {
-            System.out.println("Employee is Present (Full-time).");
+        // Loop for each working day in the month
+        for (int day = 1; day <= workingDaysPerMonth; day++) {
+            // Generate a random number (0, 1, or 2) to represent attendance (0: absent, 1: full-time, 2: part-time)
+            int attendance = random.nextInt(3);
 
-            dailyWage = wagePerHour * fullDayHour;
-            System.out.println("Daily Employee Wage: " + dailyWage);
-        } else if (attendance == 2) {
-            System.out.println("Employee is Present (Part-time).");
+            String attendanceType;
+            int dailyWage = 0;
 
-            dailyWage = wagePerHour * partTimeHour;
-            System.out.println("Daily Employee Wage: " + dailyWage);
-        } else {
-            System.out.println("Employee is Absent.");
+            switch (attendance) {
+                case 1:
+                    attendanceType = "Full-time";
+                    dailyWage = wagePerHour * fullDayHour;
+                    break;
+                case 2:
+                    attendanceType = "Part-time";
+                    dailyWage = wagePerHour * partTimeHour;
+                    break;
+                default:
+                    attendanceType = "Absent";
+                    break;
+            }
+
+            // Display the type of attendance and daily wage for the current day
+            System.out.println("Day " + day + ": " + attendanceType + " - Daily Wage: " + dailyWage);
+
+            // Accumulate the total monthly wage
+            monthlyWage += dailyWage;
         }
+
+        // Display the monthly employee wage
+        System.out.println("Monthly Employee Wage: " + monthlyWage);
     }
 }
